@@ -40,21 +40,25 @@ RSpec.describe "BinTag helper" do
   it 'create the hirerchy tree of OID' do
     
     bt = Binenc::BinTag.instance
-    bt.define_constant(:root, "2.8.3")
+    bt.define_constant(:root, "2.8.3") do
+      define_constant(:jan, "#.12.11") do 
+        define_constant(:sec, "#.20") do
+          define_constant(:third, "#.30")
+        end
+      end
+    end
 
-    bt.define_constant(:jan, ".12.11", :root)
-
+    #bt.define_constant(:jan, ".12.11", :root)
     expect(bt.constant_value(:root) == "2.8.3").to be true
     expect(bt.constant_value(:jan) == "2.8.3.12.11").to be true
+    expect(bt.constant_value(:sec) == "2.8.3.12.11.20").to be true
+    expect(bt.constant_value(:third) == "2.8.3.12.11.20.30").to be true
 
     bt.raise_on_constant_key_duplicate = true
     expect{
-      bt.define_constant(:jan, ".34", :root)
+      bt.define_constant(:jan, ".34")
     }.to raise_exception(Binenc::BinTagConstantKeyAlreadyExist)
 
-    expect{
-      bt.define_constant(:feb, ".34", :haha)
-    }.to raise_exception(Binenc::BinTagConstantKeyNotFound)
   end
 
 end

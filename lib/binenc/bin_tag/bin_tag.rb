@@ -29,18 +29,36 @@ module Binenc
           end
         end
 
-        if is_empty?(parent)
-          @constant[key] = val
-        else
-          pa = @constant[parent]
-          raise BinTagConstantKeyNotFound, "Parent key '#{parent}' not found" if is_empty?(pa)
-
-          @constant[key] = "#{pa}#{val}"
+        if val.is_a?(String) and val =~ /#/
+          val = val.gsub("#",@parent).strip
         end
+
+        @constant[key] = val
+
+        oldParent = @parent 
+
+        @parent = val
+        if block
+          instance_eval(&block)
+        end
+        @parent = oldParent
+
       end
 
       def constant_value(key)
         @constant[key]
+      end
+
+      def value_constant(val)
+        #if TR::RTUtils.on_java?
+          if val.is_a?(Integer)
+            @constant.invert[val.to_s.to_i]
+          else
+            @constant.invert[val]
+          end
+        #else
+        #  @constant.invert[val]
+        #end
       end
 
       def raise_on_constant_key_duplicate=(val)
