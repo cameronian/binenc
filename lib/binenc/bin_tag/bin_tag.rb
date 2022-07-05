@@ -1,12 +1,12 @@
 
-require 'singleton'
+#require 'singleton'
 
 module Binenc
 
   # binary tagging constant helper
   class BinTag
     include TR::CondUtils
-    include Singleton
+    #include Singleton
 
       def initialize
         @constRaiseIfDup = false

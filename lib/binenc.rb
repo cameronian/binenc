@@ -22,5 +22,7 @@ module Binenc
   class BinTagException < StandardError; end
   class BinTagConstantKeyAlreadyExist < StandardError; end
   class BinTagConstantKeyNotFound < StandardError; end
+
+  class BinencDecodingError < StandardError; end
   # Your code goes here...
 end
