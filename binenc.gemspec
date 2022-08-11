@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Ian"]
   spec.email         = ["cameronian0@protonmail.com"]
 
-  spec.summary       = ""
-  spec.description   = ""
-  spec.homepage      = ""
+  spec.summary       = "binenc - Binary encode decode library, normalization API for the Ruby and Java runtime"
+  spec.description   = "Encode and decode to ASN.1 binary format. Meant to be a normalization API for Ruby and Java runtime"
+  spec.homepage      = "https://github.com/cameronian/binenc"
   spec.required_ruby_version = ">= 2.4.0"
 
   #spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
@@ -32,6 +32,8 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "teLogger"
   spec.add_dependency "toolrack"
+
+  spec.add_development_dependency 'devops_assist'
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
